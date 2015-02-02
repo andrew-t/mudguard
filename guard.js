@@ -12,9 +12,9 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 	var all = document.getElementsByClassName('wheelguard'),
-		guards = [];
-	for (var i = 0; i < all.length; ++i) {
-		var element = all[i];
+		guards = [],
+		clearTimers = [];
+	for (var i = 0; i < all.length; ++i) (function(element, i) {
 
 		// Create a 'guard' div to cover the guarded element:
 		if (window.getComputedStyle(element).position == 'static')
@@ -29,34 +29,36 @@ document.addEventListener('DOMContentLoaded', function() {
 		element.appendChild(guard);
 
 		// Make it appear and disappear as needed:
-		var clearTimer, addTimer;
 		guard.addEventListener('mouseover', function() {
-			if (lastWheel + timeout > new Date().getTime())
+			var timeLeft = lastWheel + timeout - new Date().getTime();
+			console.log('entering at ' + timeLeft)
+			if (timeLeft > 0)
 				// The user wheeled but a moment ago; they probably don't want to zoom the map.
-				clearTimer = setTimeout(function() {
+				clearTimers[i] = setTimeout(function() {
 					guard.style.display = 'none';
-					clearTimer = undefined;
-				}, timeout);
+					clearTimers[i] = undefined;
+				}, timeLeft);
 			else
 				// The user hasn't wheeled for ages; they probably came here to play with the map.
 				guard.style.display = 'none';
 		});
 		guard.addEventListener('mouseout', function() {
+			console.log(leaving)
 			// This probably means the user wheeled clean past the map. Best put everything back.
-			if (clearTimer) {
-				clearTimeout(clearTimer);
-				clearTimer = undefined;
+			if (clearTimers[i]) {
+				clearTimeout(clearTimers[i]);
+				clearTimers[i] = undefined;
 			}
 		});
 		onWheel(guard, function(e) {
 			// This should mean the user is continuing to wheel past the map. Reset the timer.
-			clearTimeout(clearTimer);
-			clearTimer = setTimeout(function() {
+			clearTimeout(clearTimers[i]);
+			clearTimers[i] = setTimeout(function() {
 				guard.style.display = 'none';
-				clearTimer = undefined;
+				clearTimers[i] = undefined;
 			}, timeout);
 		});
-	}
+	})(all[i], i);
 
 	onWheel(window, function(e) {
 		// If the document scrolls, that's our cue to replace all the guard covers.
@@ -64,10 +66,12 @@ document.addEventListener('DOMContentLoaded', function() {
 			guards.forEach(function(guard) {
 				guard.style.display = 'block';
 			});
-			if (clearTimer) {
-				clearTimeout(clearTimer);
-				clearTimer = undefined;
-			}
+			clearTimers.forEach(function (clearTimer) {
+				if (clearTimer) {
+					clearTimeout(clearTimer);
+					clearTimer = undefined;
+				}
+			});
 			lastWheel = new Date().getTime();
 		}
 	});

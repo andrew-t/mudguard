@@ -31,7 +31,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		// Make it appear and disappear as needed:
 		guard.addEventListener('mouseover', function() {
 			var timeLeft = lastWheel + timeout - new Date().getTime();
-			console.log('entering at ' + timeLeft)
 			if (timeLeft > 0)
 				// The user wheeled but a moment ago; they probably don't want to zoom the map.
 				clearTimers[i] = setTimeout(function() {
@@ -43,7 +42,6 @@ document.addEventListener('DOMContentLoaded', function() {
 				guard.style.display = 'none';
 		});
 		guard.addEventListener('mouseout', function() {
-			console.log(leaving)
 			// This probably means the user wheeled clean past the map. Best put everything back.
 			if (clearTimers[i]) {
 				clearTimeout(clearTimers[i]);

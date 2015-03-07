@@ -23,7 +23,7 @@
 	transition: opacity 0.3s;
 	cursor: pointer;
 }
-.kickstand .mudguard-cover :hover {
+.kickstand .mudguard-cover:hover {
 	opacity: 1;
 }
 .kickstand .mudguard-cover :after {

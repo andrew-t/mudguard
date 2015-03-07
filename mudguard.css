@@ -26,7 +26,7 @@
 .kickstand .mudguard-cover:hover {
 	opacity: 1;
 }
-.kickstand .mudguard-cover :after {
+.kickstand .mudguard-cover:after {
 	content: 'Click to interact';
 	font-style: sans-serif;
 	border-radius: .5em;

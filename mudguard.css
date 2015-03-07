@@ -1,0 +1,35 @@
+.mudguard-cover {
+	position: absolute;
+	display: block;
+	opacity: 0;
+	z-index: 100000;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+}
+
+.kickstand .mudguard-cover {
+	background: rgba(0, 0, 0, 0.25);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	display: -webkit-flex;
+	-webkit-flex-direction: column;
+	-webkit-justify-content: center;
+	-webkit-align-items: center;
+	opacity: 0;
+	transition: opacity 0.3s;
+	cursor: pointer;
+}
+.kickstand .mudguard-cover :hover {
+	opacity: 1;
+}
+.kickstand .mudguard-cover :after {
+	content: 'Click to interact';
+	font-style: sans-serif;
+	border-radius: .5em;
+	border: .5em solib rgba(0, 0, 0, 0.5);
+	background: rgba(255, 255, 255, 0.5);
+}

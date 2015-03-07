@@ -21,10 +21,6 @@ document.addEventListener('DOMContentLoaded', function() {
 			element.style.position = 'relative';
 		var guard = document.createElement('div');
 		guard.classList.add('wheelguard-cover');
-		guard.style.position = 'absolute';
-		guard.style.display = 'none';
-		guard.style.zIndex = '100000';
-		guard.style.top = guard.style.left = guard.style.bottom = guard.style.right = '0';
 		guards.push(guard);
 		element.appendChild(guard);
 
@@ -42,6 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				guard.style.display = 'none';
 		});
 		guard.addEventListener('mouseout', function() {
+			console.log(leaving)
 			// This probably means the user wheeled clean past the map. Best put everything back.
 			if (clearTimers[i]) {
 				clearTimeout(clearTimers[i]);

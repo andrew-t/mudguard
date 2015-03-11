@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		element.addEventListener('MozMousePixelScroll', callback);
 	}
 
-	var all = document.getElementsByClassName('wheelguard'),
+	var all = document.getElementsByClassName('mudguard'),
 		guards = [],
 		clearTimers = [];
 	for (var i = 0; i < all.length; ++i) (function(element, i) {
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		if (window.getComputedStyle(element).position == 'static')
 			element.style.position = 'relative';
 		var guard = document.createElement('div');
-		guard.classList.add('wheelguard-cover');
+		guard.classList.add('mudguard-cover');
 		guards.push(guard);
 		element.appendChild(guard);
 
